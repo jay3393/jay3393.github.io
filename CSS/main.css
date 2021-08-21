@@ -1,6 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 :root {
   --primary-color: #007af3;
+  --primary-color-900: #00478d;
+  --white--300: #f2f2f2;
+  --white--800: #585858;
 }
 
 body {
@@ -55,20 +58,39 @@ section {
 }
 
 .hero {
-  text-align: center;
+  display: none;
+  text-align: left;
+}
+
+.hero-mobile {
+  text-align: left;
+  padding: 2em 3em;
+}
+
+.hero-mobile .image-cropper {
+  margin: 1.5em auto;
+  margin-bottom: 5em;
 }
 
 .left-col .subhead {
   text-transform: uppercase;
   font-weight: bold;
   color: gray;
-  letter-spacing: .3em;
+  letter-spacing: .25em;
 }
 
 .left-col h1 {
   font-size: 2.5em;
-  line-height: 1.3em;
+  line-height: .4em;
   margin-top: .2em;
+}
+
+.left-col .job-title {
+  margin-top: 2.5em;
+}
+
+.left-col p {
+  line-height: .5em;
 }
 
 .left-col .primary-cta {
@@ -91,9 +113,20 @@ section {
   margin-right: .5em;
 }
 
+.image-cropper {
+  display: block;
+  width: 20em;
+  height: 20em;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
 .hero-img {
-  width: 70%;
-  margin-top: 3em;
+  display: inline;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
 }
 
 section.features-section {
@@ -128,30 +161,202 @@ ul.features-list li:before {
   margin-right: .5em;
 }
 
-.features-section img {
-  display: none;
+.gradient-overlay:hover {
+  cursor: pointer;
+  position: relative;
 }
 
-.testimonials-section {
+.gradient-overlay:hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: -webkit-gradient(linear, left bottom, left top, from(black), to(rgba(0, 0, 0, 0)));
+  background-image: linear-gradient(360deg, black 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.gradient-overlay:hover .text {
+  cursor: pointer;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  z-index: 10;
+  margin: 1em;
+}
+
+.text {
+  display: none;
+  bottom: 0;
+}
+
+.features-section img {
+  width: 100%;
+}
+
+.project-title h2 {
+  color: white;
+  text-align: center;
+}
+
+.projects-section {
   background: var(--primary-color);
   color: white;
 }
 
-.testimonials-section li {
-  background: #006bd6;
+.projects-section li {
   text-align: center;
-  padding: 2em 1em;
   width: 80%;
   margin: 0 auto 5em auto;
-  border-radius: 1em;
 }
 
-.testimonials-section li img {
+.projects-section li .card {
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 2em 1em;
+  border-radius: .5em;
+  padding: 8rem 0 0;
+  text-align: left;
+  overflow: hidden;
+  height: 35ch;
+  -webkit-transition: -webkit-transform 500ms ease;
+  transition: -webkit-transform 500ms ease;
+  transition: transform 500ms ease;
+  transition: transform 500ms ease, -webkit-transform 500ms ease;
+}
+
+.projects-section li .card:hover, .projects-section li .card:focus-within {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.projects-section li .card:hover h2::after, .projects-section li .card:focus-within h2::after {
+  -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+}
+
+.projects-section li .card:hover .card-content > *:not(h2), .projects-section li .card:focus-within .card-content > *:not(h2) {
+  opacity: 1;
+  -webkit-transition-delay: 500ms;
+          transition-delay: 500ms;
+}
+
+.projects-section li .card-content {
+  --padding: 1.5rem;
+  padding: var(--padding);
+  background: -webkit-gradient(linear, left bottom, left top, from(black), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(360deg, black 0%, rgba(0, 0, 0, 0) 100%);
+  border-radius: .5em;
+}
+
+@media (hover) {
+  .projects-section li .card {
+    height: 30ch;
+  }
+  .projects-section li .card-content {
+    -webkit-transform: translateY(65%);
+            transform: translateY(65%);
+    -webkit-transition: -webkit-transform 500ms ease;
+    transition: -webkit-transform 500ms ease;
+    transition: transform 500ms ease;
+    transition: transform 500ms ease, -webkit-transform 500ms ease;
+  }
+  .projects-section li .card:hover .card-content, .projects-section li .card:focus-within .card-content {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    -webkit-transition-delay: 500ms;
+            transition-delay: 500ms;
+  }
+  .projects-section li .card:focus-within .card-content {
+    -webkit-transition-duration: 0ms;
+            transition-duration: 0ms;
+  }
+  .projects-section li .card-content > *:not(h2) {
+    opacity: 0;
+    -webkit-transition: opacity 1000ms linear;
+    transition: opacity 1000ms linear;
+  }
+  .projects-section li .card-content h2::after {
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
+  }
+}
+
+.projects-section li img {
   width: 5em;
   height: 5em;
-  border: 5px solid #006bd6;
-  border-radius: 50%;
+  border-radius: 0%;
   margin-top: -4.5em;
+}
+
+.projects-section li p, .projects-section li h2, .projects-section li a {
+  margin: 0;
+  margin-top: 0.5em;
+}
+
+.projects-section li h2 {
+  color: white;
+  position: relative;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.projects-section li h2::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--padding) * -1);
+  bottom: 0;
+  height: 4px;
+  width: calc(100% + var(--padding));
+  background: var(--primary-color);
+  -webkit-transform-origin: left;
+          transform-origin: left;
+  -webkit-transition: -webkit-transform 500ms ease;
+  transition: -webkit-transform 500ms ease;
+  transition: transform 500ms ease;
+  transition: transform 500ms ease, -webkit-transform 500ms ease;
+}
+
+.projects-section li .learn-more {
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  background-color: var(--white--300);
+  padding: 0.5em 1.25em;
+  margin-top: 1.5em;
+  border-radius: .25em;
+  bottom: 0;
+}
+
+.projects-section li .learn-more:hover, .projects-section li .learn-more:focus {
+  background-color: white;
+}
+
+#project-1 {
+  background-image: url("../images/amazely_1.gif");
+}
+
+#project-2 {
+  background-image: url("../images/boid_1.gif");
+}
+
+#project-3 {
+  background-image: url("../images/shopalert_1.png");
+}
+
+.about-section h2 {
+  color: #808080;
+}
+
+.contact-section {
+  background: var(--white--800);
+}
+
+.contact-section h2 {
+  color: white;
 }
 
 h2 {
@@ -308,7 +513,7 @@ nav li a:hover {
     width: 90%;
   }
   .hero-img {
-    width: 30%;
+    width: 100%;
     margin-right: 8em;
   }
   .hero-cta {
@@ -340,12 +545,12 @@ nav li a:hover {
     width: 350px;
     bottom: -2em;
   }
-  .testimonials-section ul {
+  .projects-section ul {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
   }
-  .testimonials-section ul li {
+  .projects-section ul li {
     margin: 0 1em;
   }
   .contact-section {

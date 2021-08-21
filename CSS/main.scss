@@ -2,6 +2,9 @@
 
 :root {
     --primary-color: #007af3;
+    --primary-color-900: #00478d;
+    --white--300: #f2f2f2;
+    --white--800: #585858;
 }
 
 body {
@@ -54,7 +57,18 @@ section {
 }
 
 .hero {
-    text-align: center;
+    display: none;
+    text-align: left;
+}
+
+.hero-mobile {
+    text-align: left;
+    padding: 2em 3em;
+
+    .image-cropper {
+        margin: 1.5em auto;
+        margin-bottom: 5em;
+    }
 }
 
 .left-col {
@@ -63,13 +77,21 @@ section {
         text-transform: uppercase;
         font-weight: bold;
         color: gray;
-        letter-spacing: .3em;
+        letter-spacing: .25em;
     }
 
     h1 {
         font-size: 2.5em;
-        line-height: 1.3em;
+        line-height: .4em;
         margin-top: .2em;
+    }
+    
+    .job-title {
+        margin-top: 2.5em;
+    }
+
+    p {
+        line-height: .5em;
     }
 
     .primary-cta {
@@ -93,9 +115,21 @@ section {
     }
 }
 
+.image-cropper {
+    display: block;
+    width: 20em;
+    height: 20em;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
 .hero-img {
-    width: 70%;
-    margin-top: 3em;
+    display: inline;
+    margin: 0 auto;
+    // margin-right: -25%; //centers the image
+    width: 100%;
+    height: auto;
 }
 
 section.features-section {
@@ -128,31 +162,209 @@ ul.features-list {
     }
 }
 
-.features-section img {
-    display: none;
+.gradient-overlay:hover {
+    cursor: pointer;
+    position: relative;
+
+    &::after {
+        content:'';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(360deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    }
 }
 
-.testimonials-section {
+.gradient-overlay:hover .text {
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    margin: 1em;
+}
+
+.text{ 
+    display: none;
+    bottom: 0;
+}
+
+.features-section img {
+    // display: none;
+    width: 100%;
+}
+
+.project-title {
+
+    h2 {
+        color: white;
+        text-align: center;
+    }
+   
+}
+
+.projects-section {
     background: var(--primary-color);
     color: white;
 
     li {
-        background: #006bd6;
+        // background: #006bd6;
+        // background-image: url("../images/amazely_3.gif");
+        // background-repeat: no-repeat;
         text-align: center;
-        padding: 2em 1em;
+        // padding: 2em 1em;
         width: 80%;
         margin: 0 auto 5em auto;
-        border-radius: 1em;
+        // border-radius: 1em;
+
+        .card {
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 2em 1em;
+            // margin: 0 auto 5em auto;
+            border-radius: .5em;
+            padding: 8rem 0 0;
+            text-align: left;
+            overflow: hidden;
+            height: 35ch;
+
+            transition: transform 500ms ease;
+
+            &:hover, &:focus-within {
+                transform: scale(1.05);
+            }
+
+            &:hover h2::after, &:focus-within h2::after {
+                transform: scaleX(1);
+            }
+
+            
+
+           
+
+            &:hover .card-content > *:not(h2), &:focus-within .card-content > *:not(h2) {
+                opacity: 1;
+                transition-delay: 500ms;
+                
+            }
+        }
+
+        
+
+        .card-content {
+            --padding: 1.5rem;
+            padding: var(--padding);
+            background: linear-gradient(360deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+            border-radius: .5em;
+            
+        }
+
+        @media (hover) {
+            .card {
+                height: 30ch;
+            }
+
+            .card-content {
+                transform: translateY(65%);
+                transition: transform 500ms ease;
+            }
+
+            .card:hover .card-content, .card:focus-within .card-content {
+                transform: translateY(0);
+                transition-delay: 500ms;
+            }
+
+            .card:focus-within .card-content {
+                transition-duration: 0ms;
+            }
+
+            .card-content > *:not(h2) {
+                opacity: 0;
+                transition: opacity 1000ms linear;
+            }
+
+            .card-content h2::after {
+                transform: scaleX(0);
+            }
+        }
         
         img {
             width: 5em;
             height: 5em;
-            border: 5px solid #006bd6;
-            border-radius: 50%;
+            // border: 5px solid #006bd6;
+            border-radius: 0%;
             margin-top: -4.5em;
         }
+
+        p, h2 , a{
+            margin: 0;
+            margin-top: 0.5em;
+        }
+
+        h2 {
+            color: white;
+            position: relative;
+            width: max-content;
+
+            &::after {
+                content: "";
+                position: absolute;
+                left: calc(var(--padding) * -1);
+                bottom: 0;
+                height: 4px;
+                width: calc(100% + var(--padding));
+                background: var(--primary-color);
+
+                transform-origin: left;
+                transition: transform 500ms ease;
+            }
+
+        }
+
+        .learn-more {
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+            color: black;
+            background-color: var(--white--300);
+            padding: 0.5em 1.25em;
+            margin-top: 1.5em;
+            border-radius: .25em;
+            bottom: 0;
+
+            &:hover, &:focus {
+                background-color: white;
+            }
+        }
+
     }
 
+}
+
+#project-1 {
+    background-image: url("../images/amazely_1.gif");
+}
+#project-2 {
+    background-image: url("../images/boid_1.gif");
+}
+#project-3 {
+    background-image: url("../images/shopalert_1.png");
+}
+
+.about-section {
+    h2 {
+        color: #808080;
+    }
+}
+
+.contact-section {
+    background: var(--white--800);
+
+    h2 {
+        color: white;
+    }
 }
 
 h2 {
@@ -314,7 +526,7 @@ nav {
     }
 
     .hero-img {
-        width: 30%;
+        width: 100%;
         margin-right: 8em;
     }
 
@@ -352,7 +564,7 @@ nav {
         bottom: -2em;
     }
 
-    .testimonials-section ul{
+    .projects-section ul{
         display: flex;
 
         li {
